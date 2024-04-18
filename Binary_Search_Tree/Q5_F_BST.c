@@ -91,7 +91,38 @@ int main()
 
 void postOrderIterativeS2(BSTNode *root)
 {
-	 /* add your code here */
+	/* add your code here */
+	Stack *s1 = (Stack *)malloc(sizeof(Stack));
+	Stack *s2 = (Stack *)malloc(sizeof(Stack));
+	BSTNode *tmp = (BSTNode *)malloc(sizeof(BSTNode));
+	if (root == NULL)
+	{
+		return;
+	}
+
+	push(s1, root);
+
+	while (!isEmpty(s1))
+	{
+		tmp = pop(s1);
+		push(s2, tmp);
+		if (tmp->left != NULL)
+		{
+			push(s1, tmp->left);
+		}
+		if (tmp->right != NULL)
+		{
+			push(s1, tmp->right);
+		}
+	}
+
+	while (!isEmpty(s2))
+	{
+		tmp = pop(s2);
+		printf("%d ", tmp->item);
+	}
+	free(s1);
+	free(s2);
 }
 
 /* Given a binary search tree and a key, this function
@@ -99,6 +130,38 @@ void postOrderIterativeS2(BSTNode *root)
 BSTNode* removeNodeFromTree(BSTNode *root, int value)
 {
 	/* add your code here */
+	if (root == NULL) {
+		return NULL;
+	}
+
+	if (root->item < value) {
+		root->right = removeNodeFromTree(root->right,value);
+	}
+	else if (root->item > value) {
+		root->left = removeNodeFromTree(root->left,value);
+	}
+	else { // 찾은경우 
+		if (root->right == NULL && root->left == NULL) {
+			free(root); 
+			return NULL;
+		}
+		else if (root->right == NULL) {
+			BSTNode *tmp = root->left;
+			free(root);
+			return tmp;
+		} 
+		else if (root->left == NULL) {
+			BSTNode *tmp = root->right;
+			free(root);
+			return tmp;
+		}
+		else { // 자식이 두명인 경우 최솟값 하나를 찾아야 하는 상황입니다.
+			BSTNode *tmp = findMinValue(root->right);
+			root->item = tmp->item;
+			root->right = removeNodeFromTree(root->right,tmp->item);
+		}
+	}
+	return root;
 }
 ///////////////////////////////////////////////////////////////////////////////
 

@@ -104,7 +104,36 @@ int main()
 void alternateMergeLinkedList(LinkedList *ll1, LinkedList *ll2)
 {
     /* add your code here */
+
+    // l1 의 수 만큼 l2에 있는 요소를 넣어주는 것. 
+    int fixedSizeOf_ll1 = ll1->size;
+    
+    if (ll1->head == NULL & ll2->head == NULL) {
+        return;
+    }
+
+    ListNode *tmp1 = ll1->head; // ll1의 주솟값 자체를 주니까?
+    ListNode *tmp2 = (ListNode*)malloc(sizeof(ListNode));
+
+    for (int i=0; i < fixedSizeOf_ll1; i++) {
+        if (ll2->head == NULL) {
+            return;
+        }
+        // 여기서도 계속 변경시킬 뭔가가 필요하겠구만.
+        // 우선 ll2의 첫 번째가 가르키는 방향을 다음으로 옮겨주자.
+        ListNode *tmp = ll2->head; // 우선 ll2_head 가 가르키는 방향을 임시저장하고
+        ll2->head = ll2->head->next; // 바뀌준담에
+            
+        tmp->next = tmp1->next;
+        tmp1->next = tmp;
+        ll1->size++;
+        ll2->size--;
+        tmp1 = tmp1->next->next;
+
+    }
+
 }
+
 
 ///////////////////////////////////////////////////////////////////////////////////
 

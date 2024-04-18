@@ -36,7 +36,8 @@ typedef struct _stack
 
 // You should not change the prototypes of these functions
 int smallestValue(BTNode *node);
-
+int min(int a, int b);
+int min3(int a, int b, int c);
 BTNode *createBTNode(int item);
 
 BTNode *createTree();
@@ -103,7 +104,15 @@ int main()
 int smallestValue(BTNode *node)
 {
 	/* add your code here */
+    if (node == NULL) {
+        return 999999;
+    }
+    int left = smallestValue(node->left);
+    int right = smallestValue(node->right);
+    return min3(node->item,left,right);
 }
+
+
 
 //////////////////////////////////////////////////////////////////////////////////
 
@@ -118,6 +127,13 @@ BTNode *createBTNode(int item)
 
 //////////////////////////////////////////////////////////////////////////////////
 
+int min(int a, int b) {
+    return (a < b) ? a : b;
+}
+
+int min3(int a, int b, int c) {
+    return min(a, min(b, c));
+}
 
 BTNode *createTree()
 {

@@ -83,9 +83,7 @@ int main()
 			printf("Choice unknown;\n");
 			break;
 		}
-
 	}
-
 	return 0;
 }
 
@@ -93,8 +91,7 @@ int main()
 
 void levelOrderTraversal(BSTNode* root)
 {
-
-    /* add your code here */
+	/* add your code here */
 }
 
 ///////////////////////////////////////////////////////////////////////////////

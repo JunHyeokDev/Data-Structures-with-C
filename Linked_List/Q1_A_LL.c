@@ -91,6 +91,55 @@ int main()
 int insertSortedLL(LinkedList *ll, int item)
 {
 	/* add your code here */
+	int idx=0;
+	ListNode *cur=NULL, *tmp;
+	if (ll->head == NULL) {
+		ll->head = malloc(sizeof(ListNode));
+		ll->head->next = NULL;
+		ll->head->item = item;
+		ll->size+=1;
+		return 0;
+	}
+
+	ListNode *ll_head = ll->head;
+	
+	while (ll_head != NULL) {
+
+		if(ll_head->item == item) {
+			printf("Duplicate item already exists in the Linked List.");
+			return -1;
+		// If item is smaller then ll_head->item
+		} else if (ll_head->item > item) { 
+
+			// allotcate memory
+			tmp = malloc(sizeof(ListNode));
+
+			tmp->next = ll_head;
+			tmp->item = item;
+
+			if (cur != NULL) {
+				cur->next = tmp;
+ 			}
+			else {
+				ll->head = tmp;
+			}
+			ll->size+=1;
+			printf("Returned idx is %d",idx);
+			return idx;
+		}
+		cur = ll_head;
+		ll_head = ll_head->next;
+		idx++;
+	}
+    ll_head = malloc(sizeof(ListNode));
+    ll_head->next = NULL;
+    ll_head->item = item;
+
+    cur->next = ll_head;
+    ll->size+=1;
+
+	printf("Returned idx is %d",idx);
+    return idx;
 }
 
 ///////////////////////////////////////////////////////////////////////////////////

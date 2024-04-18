@@ -87,6 +87,31 @@ int main()
 void moveOddItemsToBack(LinkedList *ll)
 {
 	/* add your code here */
+	int sizeOfLL = ll->size;
+    ListNode* prev = NULL;
+    ListNode* cur = ll->head;
+    ListNode* lastNode = getLastNode(ll);
+
+	if (ll->head == NULL) {
+        return;
+    }
+
+    for (int i=0; i<sizeOfLL; i++) {
+        if (cur->item % 2 != 0) { // 홀수를 만나면
+            if (prev == NULL) { // 첫 번째 노드가 홀수일 경우
+                ll->head = cur->next;
+            } else { // 홀수를 만나면 이전 노드를 2칸 앞당겨줘야함.
+                prev->next = cur->next;
+            }
+            lastNode->next = cur; // 홀수 노드를 마지막 노드의 다음으로 이동
+            lastNode = cur; // 마지막 노드를 업데이트
+            cur = cur->next; // 다음 계산을 위해 cur 또한 앞당겨준다.
+            lastNode->next = NULL; // 마지막 노드의 다음을 NULL로 설정
+			continue; // 여기서 continue가 없다면 아래 코드가 실행된다.
+        }
+		prev = cur;
+        cur = cur->next;
+    }
 }
 
 ///////////////////////////////////////////////////////////////////////////////////

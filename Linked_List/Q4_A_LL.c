@@ -28,7 +28,7 @@ typedef struct _linkedlist
 
 // You should not change the prototype of this function
 void moveEvenItemsToBack(LinkedList *ll);
-
+ListNode * getLastNode(LinkedList *ll);
 void printList(LinkedList *ll);
 void removeAllItems(LinkedList *ll);
 ListNode * findNode(LinkedList *ll, int index);
@@ -86,10 +86,45 @@ int main()
 
 void moveEvenItemsToBack(LinkedList *ll)
 {
-	/* add your code here */
+	int sizeOfLL = ll->size;
+	ListNode *prev=NULL;
+	ListNode *cur = ll->head;
+	ListNode *lastNode = getLastNode(ll);
+
+	if (ll->head == NULL) {
+        return;
+    }
+
+	for (int i=0; i<sizeOfLL; i++) {
+		
+		if (cur->item % 2 == 0) { // 짝수인경우
+			if (prev == NULL) {
+				ll->head = ll->head->next;
+			} else {
+				prev->next = cur->next;
+			}
+			lastNode->next = cur;
+			lastNode = cur;
+			cur = cur->next;
+			lastNode->next = NULL; // 이거 순서도 중요하네.
+		} else { // 홀수인 경우
+			prev = cur;
+			cur = cur->next;
+		}
+	}
 }
 
 ///////////////////////////////////////////////////////////////////////////////////
+
+
+// getLastNode 는 주솟값을 반환하며 ll의 주솟값을 매개변수로 받습니다
+ListNode * getLastNode(LinkedList *ll) {
+	ListNode *tmp = ll->head;
+	while (tmp->next != NULL)  {
+		tmp = tmp->next;
+	}
+	return tmp;
+}
 
 void printList(LinkedList *ll){
 

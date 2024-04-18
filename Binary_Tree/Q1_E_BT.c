@@ -117,6 +117,36 @@ int identical(BTNode *tree1, BTNode *tree2)
 
 {
    /* add your code here */
+    int res = 1;
+    
+    // If both trees are NULL, they are identical
+    if (tree1 == NULL && tree2 == NULL) {
+        return 1;
+    }
+    
+    // If one of the trees is NULL while the other is not, they are not identical
+    if ((tree1 == NULL && tree2 != NULL) || (tree1 != NULL && tree2 == NULL)) {
+        return 0;
+    }
+    
+    // Compare the value of the current nodes
+    if (tree1->item != tree2->item) {
+        return 0; // Values are different, trees are not identical
+    }
+    
+    // Recursively check the left and right subtrees
+    res = identical(tree1->left, tree2->left);
+    if (res == 0) {
+        return 0; // Left subtrees are not identical
+    }
+    
+    res = identical(tree1->right, tree2->right);
+    if (res == 0) {
+        return 0; // Right subtrees are not identical
+    }
+    
+    // If all checks passed, the trees are identical
+    return 1;
 }
 
 /////////////////////////////////////////////////////////////////////////////////
